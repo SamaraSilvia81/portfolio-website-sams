@@ -1,0 +1,36 @@
+{
+  "_comment": "Este arquivo é apenas documentação de referência. As imagens são importadas via import estático em src/data/images.js — edite lá para trocar fotos. Caminhos relativos em JSON não são processados pelo Vite.",
+
+  "hero": {
+    "_import": "editorialSamara ← ../img/editorial-samara-2.png",
+    "_opcoes": [
+      "samaraPerfilDark ← ../img/samara-perfil-dark.png — boa pro dark mode",
+      "samaraPerfilLight ← ../img/samara-perfil-light-2.jpg — mais clara"
+    ],
+    "alt": "Samara — retrato editorial",
+    "position": "top center"
+  },
+
+  "about": {
+    "_import": "samaraPerfilLight ← ../img/samara-perfil-light-2.jpg",
+    "_opcoes": [
+      "samaraPerfilDark ← ../img/samara-perfil-dark.png — boa pro dark mode",
+      "editorialSamara ← ../img/editorial-samara-2.png — versão editorial"
+    ],
+    "alt": "Samara Silvia Sabino",
+    "position": "center top"
+  },
+
+  "aboutGallery": [
+    {
+      "_import": "setupCode ← ../img/setup-code.jpg",
+      "alt": "Setup de código — mesa de trabalho",
+      "position": "center center"
+    },
+    {
+      "_import": "studyCin1 ← ../img/cin-ufpe/study-cin-1.jpg",
+      "alt": "Sessão de estudo no CIn/UFPE",
+      "position": "center center"
+    }
+  ]
+}
