@@ -8,7 +8,7 @@ export default function Footer() {
         alignItems: 'center', flexWrap: 'wrap', gap: 12,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <span className="fm" style={{ fontSize: 12, color: colors.muted }}>© 2026 sams.sh</span>
+          <span className="fm" style={{ fontSize: 12, color: colors.muted }}>© 2026 devs_sams.sh</span>
           <span style={{ color: colors.rule }}>·</span>
           <span className="fm" style={{ fontSize: 11, color: colors.muted }}>all rights reserved</span>
         </div>
