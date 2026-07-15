@@ -1,88 +1,25 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Terminal, ArrowUpRight, Menu, X } from 'lucide-react'
+import { Terminal, ArrowUpRight, Menu, X, Globe } from 'lucide-react'
 import { colors, rawColors } from '../data/tokens'
+import { useLang } from '../data/LangContext'
 import { Marquee } from './ui'
-
-const navLinks = [
-  { to: '/', label: '~/home' },
-  { to: '/projects', label: '~/projects' },
-  { to: '/about', label: '~/about' },
-  { to: '/contact', label: '~/contact' },
-]
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
-
-  const styles = {
-    ticker: {
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-      background: colors.phosphor, height: 32,
-      display: 'flex', alignItems: 'center',
-    },
-    tickerItem: {
-      fontFamily: "'JetBrains Mono', monospace",
-      fontSize: 11, fontWeight: 700,
-      color: colors.void, letterSpacing: '0.06em',
-      textTransform: 'uppercase', padding: '0 24px',
-      display: 'flex', alignItems: 'center', gap: 12,
-    },
-    nav: {
-      position: 'fixed', top: 32, left: 0, right: 0, zIndex: 90,
-      background: 'color-mix(in srgb, var(--c-void) 80%, transparent)',
-      backdropFilter: 'blur(16px) saturate(1.2)',
-      borderBottom: `1px solid ${colors.rule}`,
-    },
-    navInner: {
-      display: 'flex', alignItems: 'center',
-      justifyContent: 'space-between', height: 56,
-    },
-    logo: {
-      background: 'none', border: 'none', cursor: 'pointer',
-      display: 'flex', alignItems: 'center', gap: 8,
-      textDecoration: 'none',
-    },
-    link: (active) => ({
-      color: active ? colors.phosphor : colors.muted,
-      textDecoration: 'none', fontSize: 13,
-      letterSpacing: '0.02em', transition: 'color 0.25s',
-      fontFamily: "'JetBrains Mono', monospace",
-      padding: '4px 0',
-    }),
-    cta: {
-      background: colors.ember, color: '#fff', border: 'none',
-      padding: '10px 24px',
-      fontFamily: "'Space Grotesk', sans-serif",
-      fontWeight: 600, fontSize: 14, letterSpacing: '0.03em',
-      cursor: 'pointer', display: 'inline-flex',
-      alignItems: 'center', gap: 8,
-      textDecoration: 'none',
-      transition: 'all 0.3s cubic-bezier(.16,1,.3,1)',
-    },
-    mobileMenu: {
-      position: 'fixed', inset: 0,
-      background: 'color-mix(in srgb, var(--c-void) 97%, transparent)',
-      backdropFilter: 'blur(16px)',
-      zIndex: 200, display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center', gap: 28,
-    },
-  }
-
-  const tickerTexts = [
-    'Available for projects',
-    'Frontend · UX/UI · Design Systems',
-    'Recife, BR → Worldwide',
-  ]
+  const { lang, t, toggle } = useLang()
+  const navLinks = t.nav.links
+  const tickerTexts = t.nav.ticker
 
   return (
     <>
       {/* TICKER */}
-      <div style={styles.ticker}>
+      <div className="ticker-bar">
         <Marquee speed={25}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {Array.from({ length: 12 }).map((_, i) => (
-              <span key={i} style={styles.tickerItem}>
+              <span key={i} className="fm ticker-item">
                 <span style={{ opacity: 0.4 }}>✦</span>
                 {tickerTexts[i % 3]}
               </span>
@@ -92,40 +29,40 @@ export default function Navbar() {
       </div>
 
       {/* NAV */}
-      <nav style={styles.nav}>
-        <div className="container" style={styles.navInner}>
-          <Link to="/" style={styles.logo} className="glitch-wrap">
+      <nav className="main-nav">
+        <div className="container nav-inner">
+          <Link to="/" className="glitch-wrap nav-logo">
             <Terminal size={15} color={rawColors.phosphor} />
             <span className="fm glitch-text" style={{ color: colors.bone, fontSize: 15, fontWeight: 700 }}>
               sams<span style={{ color: colors.phosphor }}>.sh</span>
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}
-               className="desktop-nav">
+          <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
             {navLinks.map((l) => (
-              <Link key={l.to} to={l.to} style={styles.link(location.pathname === l.to)}>
+              <Link key={l.to} to={l.to} className={`fm nav-link ${location.pathname === l.to ? 'active' : ''}`}>
                 {l.label}
               </Link>
             ))}
-            <Link to="/contact" style={{ ...styles.cta, marginLeft: 8 }}>
-              Let's Talk <ArrowUpRight size={13} />
+            <button onClick={toggle} className="fm lang-btn" title="Switch language">
+              <Globe size={12} />
+              {lang === 'en' ? 'PT' : 'EN'}
+            </button>
+            <Link to="/contact" className="cta-primary" style={{ marginLeft: 4 }}>
+              {t.nav.cta} <ArrowUpRight size={13} />
             </Link>
           </div>
 
-          {/* Mobile toggle */}
-          <button className="mobile-toggle"
-            onClick={() => setMenuOpen(true)}
+          <button className="mobile-toggle" onClick={() => setMenuOpen(true)}
             style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8 }}>
             <Menu size={22} color={rawColors.bone} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile menu */}
+      {/* MOBILE MENU */}
       {menuOpen && (
-        <div style={styles.mobileMenu}>
+        <div className="mobile-menu-overlay">
           <button onClick={() => setMenuOpen(false)}
             style={{ position: 'absolute', top: 48, right: 24, background: 'none', border: 'none', cursor: 'pointer' }}>
             <X size={24} color={rawColors.bone} />
@@ -133,20 +70,60 @@ export default function Navbar() {
           {navLinks.map((l) => (
             <Link key={l.to} to={l.to}
               onClick={() => setMenuOpen(false)}
-              style={{ ...styles.link(location.pathname === l.to), fontSize: 22 }}>
+              className={`fm nav-link ${location.pathname === l.to ? 'active' : ''}`}
+              style={{ fontSize: 22 }}>
               {l.label}
             </Link>
           ))}
-          <Link to="/contact" onClick={() => setMenuOpen(false)} style={styles.cta}>
-            Let's Talk <ArrowUpRight size={14} />
+          <button onClick={() => { toggle(); setMenuOpen(false) }} className="fm lang-btn" style={{ fontSize: 14, padding: '8px 16px' }}>
+            <Globe size={14} />
+            {lang === 'en' ? 'Português' : 'English'}
+          </button>
+          <Link to="/contact" onClick={() => setMenuOpen(false)} className="cta-primary">
+            {t.nav.cta} <ArrowUpRight size={14} />
           </Link>
         </div>
       )}
 
       <style>{`
+        .ticker-bar {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+          background: var(--c-phosphor); height: 32px;
+          display: flex; align-items: center;
+        }
+        .ticker-item {
+          font-size: 11px; font-weight: 700; color: var(--c-void);
+          letter-spacing: 0.06em; text-transform: uppercase;
+          padding: 0 24px; display: flex; align-items: center; gap: 12px;
+        }
+        .main-nav {
+          position: fixed; top: 32px; left: 0; right: 0; z-index: 90;
+          background: color-mix(in srgb, var(--c-void) 80%, transparent);
+          backdrop-filter: blur(16px) saturate(1.2);
+          border-bottom: 1px solid var(--c-rule);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+        .nav-logo { background: none; border: none; cursor: pointer; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+        .nav-link {
+          color: var(--c-muted); text-decoration: none; font-size: 13px;
+          letter-spacing: 0.02em; transition: color 0.25s; padding: 4px 0;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--c-phosphor); }
+        .lang-btn {
+          background: none; border: 1px solid var(--c-rule); color: var(--c-muted);
+          cursor: pointer; padding: 4px 10px; font-size: 11px; font-weight: 700;
+          letter-spacing: 0.04em; display: inline-flex; align-items: center; gap: 5px;
+          transition: all 0.25s;
+        }
+        .lang-btn:hover { border-color: var(--c-phosphor); color: var(--c-phosphor); }
+        .mobile-menu-overlay {
+          position: fixed; inset: 0;
+          background: color-mix(in srgb, var(--c-void) 97%, transparent);
+          backdrop-filter: blur(16px); z-index: 200;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+        }
         @media (max-width: 768px) { .desktop-nav { display: none !important; } }
         @media (min-width: 769px) { .mobile-toggle { display: none !important; } }
-        .desktop-nav a:hover { color: ${colors.phosphor} !important; }
       `}</style>
     </>
   )

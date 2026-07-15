@@ -16,7 +16,7 @@
 
 // ── hero & about ──────────────────────────────────────────────
 import editorialSamara    from '../img/editorial-samara-2.png'
-import samaraPerfilLight  from '../img/samara-perfil-light-2.jpg'
+import samaraPerfilLight  from '../img/samara-perfil-light.jpg'
 import samaraPerfilDark   from '../img/samara-perfil-dark.png'
 import setupCode          from '../img/setup-code.jpg'
 

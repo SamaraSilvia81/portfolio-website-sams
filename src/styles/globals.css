@@ -294,11 +294,63 @@ img { max-width: 100%; display: block; }
   justify-content: center; width: 100%; height: 60%;
   border: 1px dashed var(--c-rule); opacity: 0.4;
 } */
+
+/* ─── MOBILE HERO ─── */
 @media (max-width: 768px) {
-  .hero-photo-wrap { position: relative; right: auto; bottom: auto; width: 100%; height: 360px; margin-bottom: -40px; }
-  .hero-photo-wrap::before { display: none; }
+  .hero-section {
+    min-height: auto !important;
+    padding-top: 96px !important;
+    padding-bottom: 32px;
+  }
+  .hero-photo-wrap {
+    display: none !important; /* hide editorial image on mobile */
+  }
+  .hero-heading {
+    font-size: clamp(36px, 13vw, 52px) !important;
+  }
+  .hero-heading-sm {
+    font-size: clamp(22px, 8vw, 34px) !important;
+    margin-bottom: 20px !important;
+  }
+  .hero-meta { gap: 16px !important; }
+  .hero-deco-1, .hero-deco-2 { display: none; }
+  .hero-ctas { gap: 8px !important; }
+  .hero-ctas .cta-primary,
+  .hero-ctas .cta-ghost {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
 }
 
+/* ─── CTA BUTTONS (global) ─── */
+.cta-primary {
+  background: var(--c-ember); color: #fff; border: none;
+  padding: 12px 28px; font-family: var(--f-display); font-weight: 600;
+  font-size: 14px; display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all 0.3s; cursor: pointer;
+}
+.cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--c-ember-8);
+  color: #fff !important; /* never purple on pink */
+}
+.cta-ghost {
+  background: transparent; color: var(--c-bone);
+  border: 1px solid var(--c-rule); padding: 12px 28px;
+  font-family: var(--f-display); font-weight: 600; font-size: 14px;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none; transition: all 0.3s; cursor: pointer;
+}
+.cta-ghost:hover { border-color: var(--c-phosphor); color: var(--c-phosphor); }
+
+/* ─── MOBILE GENERAL ─── */
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .prow { grid-template-columns: 40px 1fr auto; gap: 12px; padding: 20px 16px; }
+  .pcard { padding: 24px 20px; }
+  .svc-block { padding: 28px 20px; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
 
 /* ─── BACK TO TOP ─── */
 .back-to-top {

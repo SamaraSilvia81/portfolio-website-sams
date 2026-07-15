@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
+import { LangProvider } from './data/LangContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
@@ -18,7 +19,7 @@ function ScrollToTop() {
 
 export default function App() {
   return (
-    <>
+    <LangProvider>
       <ScrollToTop />
       <Navbar />
       <Routes>
@@ -31,6 +32,6 @@ export default function App() {
       <Footer />
       <ThemeToggle />
       <BackToTop />
-    </>
+    </LangProvider>
   )
 }

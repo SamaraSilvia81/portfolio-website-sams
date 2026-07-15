@@ -12,7 +12,7 @@
   },
 
   "about": {
-    "_import": "samaraPerfilLight ← ../img/samara-perfil-light-2.jpg",
+    "_import": "samaraPerfilLight ← ../img/samara-perfil-light.jpg",
     "_opcoes": [
       "samaraPerfilDark ← ../img/samara-perfil-dark.png — boa pro dark mode",
       "editorialSamara ← ../img/editorial-samara-2.png — versão editorial"
