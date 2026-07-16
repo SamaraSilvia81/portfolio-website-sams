@@ -3,7 +3,8 @@ import { Download, Loader2 } from 'lucide-react'
 import { colors, rawColors } from '../data/tokens'
 import { useLang } from '../data/LangContext'
 import { useSupabase } from '../hooks/useSupabase'
-import { Fade, Crosshairs, SectionPrompt } from '../components/ui'
+import { Fade, SectionPrompt } from '../components/ui'
+import { aboutPhoto } from '../data/images'
 
 export default function About() {
   const { t } = useLang()
@@ -37,11 +38,8 @@ export default function About() {
                 <Download size={16} /> {a.resumeBtn}
               </a>
             </div>
-            <div style={{ aspectRatio: '3/4', background: colors.surface, border: `1px solid ${colors.rule}`, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
-              <div style={{ textAlign: 'center', padding: 32 }}>
-                <Crosshairs size={32} color={rawColors.rule} style={{ margin: '0 auto 16px' }} />
-                <p className="fm" style={{ fontSize: 11, color: colors.muted, letterSpacing: '0.06em' }}>{a.photoPlaceholder}</p>
-              </div>
+            <div className="photo-frame" style={{ aspectRatio: '3/4' }}>
+              <img src={aboutPhoto.src} alt={aboutPhoto.alt} style={{ objectPosition: aboutPhoto.pos }} />
             </div>
           </div>
         </Fade>

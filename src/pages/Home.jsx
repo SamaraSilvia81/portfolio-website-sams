@@ -85,6 +85,12 @@ export default function Home() {
               <Link to="/contact" className="cta-ghost">{h.ctaContact}</Link>
             </div>
           </Fade>
+
+          <Fade delay={0.4}>
+            <div className="hero-photo-mobile photo-frame">
+              <img src={heroImage.src} alt={heroImage.alt} style={{ objectPosition: heroImage.pos }} />
+            </div>
+          </Fade>
         </div>
       </section>
 
@@ -288,14 +294,23 @@ export default function Home() {
         .hero-meta { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 40px; }
         .hero-tagline { font-size: clamp(14px, 2.5vw, 16px); line-height: 1.7; color: var(--c-bone); max-width: 420px; opacity: 0.9; }
         .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+        .hero-photo-mobile { display: none; }
 
         @media (max-width: 768px) {
-          .hero-section { min-height: auto !important; padding-top: 96px !important; padding-bottom: 32px !important; }
+          .hero-section { min-height: auto !important; padding-top: 140px !important; padding-bottom: 32px !important; }
           .hero-photo-wrap { display: none !important; }
           .hero-deco { display: none !important; }
           .hero-h1 { font-size: clamp(32px, 14vw, 48px) !important; }
           .hero-h2 { font-size: clamp(20px, 8vw, 32px) !important; margin-bottom: 24px !important; }
           .hero-meta { gap: 16px; }
+          .hero-photo-mobile {
+            display: block;
+            margin-top: 40px;
+            aspect-ratio: 4 / 5;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+          }
           .section-pad { padding: 48px 0; }
           .info-card { padding: 16px 20px; }
           .stack-box { padding: 24px 20px; margin-top: 40px; }

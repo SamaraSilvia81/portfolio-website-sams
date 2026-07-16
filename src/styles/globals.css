@@ -459,7 +459,7 @@ img { max-width: 100%; display: block; }
   color: var(--c-phosphor);
 }
 @media (max-width: 768px) {
-  .theme-toggle { left: 8px; }
+  .theme-toggle { left: 12px; top: auto; bottom: 28px; transform: none; }
   .theme-toggle button { width: 30px; height: 30px; font-size: 13px; }
 }
 

@@ -15,9 +15,9 @@
  */
 
 // ── hero & about ──────────────────────────────────────────────
-import editorialSamara    from '../img/editorial-samara-2.png'
-import samaraPerfilLight  from '../img/samara-perfil-light.jpg'
-import samaraPerfilDark   from '../img/samara-perfil-dark.png'
+import editorialSamara    from '../img/editorial-samara-2.webp'
+import samaraPerfilLight  from '../img/samara-perfil-light.webp'
+import samaraPerfilDark   from '../img/samara-perfil-dark.webp'
 import setupCode          from '../img/setup-code.jpg'
 
 // cin-ufpe
