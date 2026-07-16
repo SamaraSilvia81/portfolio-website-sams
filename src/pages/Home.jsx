@@ -87,7 +87,7 @@ export default function Home() {
           </Fade>
 
           <Fade delay={0.4}>
-            <div className="hero-photo-mobile photo-frame">
+            <div className="hero-photo-mobile">
               <img src={heroImage.src} alt={heroImage.alt} style={{ objectPosition: heroImage.pos }} />
             </div>
           </Fade>
@@ -294,7 +294,8 @@ export default function Home() {
         .hero-meta { display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap; margin-bottom: 40px; }
         .hero-tagline { font-size: clamp(14px, 2.5vw, 16px); line-height: 1.7; color: var(--c-bone); max-width: 420px; opacity: 0.9; }
         .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-        .hero-photo-mobile { display: none; }
+        .hero-photo-mobile { display: none; position: relative; overflow: hidden; border: 1px solid var(--c-rule); }
+        .hero-photo-mobile img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
         @media (max-width: 768px) {
           .hero-section { min-height: auto !important; padding-top: 140px !important; padding-bottom: 32px !important; }

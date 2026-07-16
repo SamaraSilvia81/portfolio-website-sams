@@ -4,7 +4,6 @@ import { LangProvider } from './data/LangContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
-import ThemeToggle from './components/ThemeToggle'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import ProjectDetail from './pages/ProjectDetail'
@@ -30,7 +29,6 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
-      <ThemeToggle />
       <BackToTop />
       {/* <div className="texture-layer" aria-hidden="true" /> */}
     </LangProvider>

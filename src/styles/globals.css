@@ -425,31 +425,25 @@ img { max-width: 100%; display: block; }
 .back-to-top:hover { border-color: var(--c-phosphor); color: var(--c-phosphor); background: var(--c-phosphor-5); transform: translateY(-2px); }
 
 
-/* ─── THEME TOGGLE (lateral pill) ─── */
+/* ─── THEME TOGGLE (inline, lives in navbar) ─── */
 .theme-toggle {
-  position: fixed;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 95;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 2px;
   background: var(--c-surface);
   border: 1px solid var(--c-rule);
   border-radius: 24px;
-  padding: 4px;
-  transition: all 0.3s ease;
+  padding: 3px;
 }
 .theme-toggle button {
-  width: 36px; height: 36px;
+  width: 28px; height: 28px;
   border: none; border-radius: 50%;
   background: transparent;
   color: var(--c-muted);
   cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all 0.25s ease;
-  font-size: 16px;
+  font-size: 14px;
 }
 .theme-toggle button.active {
   background: var(--c-phosphor);
@@ -457,10 +451,6 @@ img { max-width: 100%; display: block; }
 }
 .theme-toggle button:hover:not(.active) {
   color: var(--c-phosphor);
-}
-@media (max-width: 768px) {
-  .theme-toggle { left: 12px; top: auto; bottom: 28px; transform: none; }
-  .theme-toggle button { width: 30px; height: 30px; font-size: 13px; }
 }
 
 

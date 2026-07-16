@@ -4,6 +4,7 @@ import { Terminal, ArrowUpRight, Menu, X, Globe } from 'lucide-react'
 import { colors, rawColors } from '../data/tokens'
 import { useLang } from '../data/LangContext'
 import { Marquee } from './ui'
+import ThemeToggle from './ThemeToggle'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -48,15 +49,19 @@ export default function Navbar() {
               <Globe size={12} />
               {lang === 'en' ? 'PT' : 'EN'}
             </button>
+            <ThemeToggle />
             <Link to="/contact" className="cta-primary" style={{ marginLeft: 4 }}>
               {t.nav.cta} <ArrowUpRight size={13} />
             </Link>
           </div>
 
-          <button className="mobile-toggle" onClick={() => setMenuOpen(true)}
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8 }}>
-            <Menu size={22} color={rawColors.bone} />
-          </button>
+          <div className="mobile-nav-controls" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <ThemeToggle />
+            <button className="mobile-toggle" onClick={() => setMenuOpen(true)}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 8 }}>
+              <Menu size={22} color={rawColors.bone} />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -123,7 +128,7 @@ export default function Navbar() {
           display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 28px;
         }
         @media (max-width: 768px) { .desktop-nav { display: none !important; } }
-        @media (min-width: 769px) { .mobile-toggle { display: none !important; } }
+        @media (min-width: 769px) { .mobile-nav-controls { display: none !important; } }
       `}</style>
     </>
   )
