@@ -16,7 +16,7 @@ export const translations = {
       heroLine2: 'DEVELOPER', heroLine3: '& UX DESIGNER',
       heroTagline: 'I craft digital products where code meets design craft. Intentional interfaces, scalable systems, real impact.',
       statusLabel: 'Status', statusValue: 'Available',
-      location: '📍 Recife, PE — Brazil',
+      location:'📍 Recife, PE — Brazil',
       ctaProjects: 'View Projects', ctaContact: 'Get in Touch',
       aboutTag: 'about.sh',
       aboutHeading1: 'Building digital products', aboutHeading2: 'with intention.',

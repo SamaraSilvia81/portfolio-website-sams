@@ -40,19 +40,19 @@
 
 /* ─── LIGHT MODE ─── */
 [data-theme="light"] {
-  --c-void:         #EEF0F5;
+  --c-void:         #F7F5F2;
   --c-surface:      #FFFFFF;
-  --c-surface-alt:  #E3E6EE;
+  --c-surface-alt:  #EFECE8;
   --c-phosphor:     #7B1FE0;
   --c-ember:        #D41AAF;
   --c-bone:         #1A1A18;
   --c-muted:        #8A8A80;
-  --c-rule:         #D3D6DF;
-  --c-rule-light:   #BEC2CE;
+  --c-rule:         #DDD9D3;
+  --c-rule-light:   #C8C4BE;
 }
-[data-theme="light"] #root::after { opacity: 0.02; }
-[data-theme="light"] #root::before { display: none; }
-
+/* [data-theme="light"] #root::after { opacity: 0.025; }
+[data-theme="light"] #root::before { opacity: 0.008; }
+[data-theme="light"] .texture-layer { opacity: 0.015; } */
 
 /* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -70,18 +70,39 @@ a { color: inherit; text-decoration: none; }
 button { font-family: inherit; }
 img { max-width: 100%; display: block; }
 
-
-/* ─── TEXTURE: grain (stronger, dual-layer) ─── */
+/* ─── TEXTURE LAYER 1: fine grain (high frequency) ─── */
+/* ─── TEXTURE: grain global ─── */
 #root::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px;
-  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+  opacity: 0.02;
   pointer-events: none;
   z-index: 10000;
+  mix-blend-mode: screen;
+}
+[data-theme="light"] #root::after {
   mix-blend-mode: overlay;
+  opacity: 0.09;
+}
+
+/* ─── HERO: grain on top of everything ─── */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='h'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23h)'/%3E%3C/svg%3E");
+  background-size: 160px;
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 10;
+  mix-blend-mode: overlay;
+}
+[data-theme="light"] .hero-section::after {
+  mix-blend-mode: overlay;
+  opacity: 0.5;
 }
 
 /* ─── TEXTURE: scanlines ─── */
@@ -96,6 +117,43 @@ img { max-width: 100%; display: block; }
   pointer-events: none;
   z-index: 9999;
 }
+
+/* #root::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
+  opacity: 0.4;
+  pointer-events: none;
+  z-index: 10000;
+  mix-blend-mode: overlay;
+} */
+
+/* ─── TEXTURE LAYER 2: coarse noise (low frequency, paper-like) ─── */
+/* .texture-layer {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.35' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  background-size: 300px;
+  opacity: 0.0;
+  pointer-events: none;
+  z-index: 9998;
+  mix-blend-mode: soft-light;
+} */
+
+/* ─── TEXTURE LAYER 3: scanlines ─── */
+/* #root::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+} */
 
 
 /* ─── UTILITY ─── */
@@ -117,6 +175,7 @@ img { max-width: 100%; display: block; }
   0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
   50% { transform: translateY(-6px) rotate(var(--rot, 0deg)); }
 }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 .blink { animation: blink 1s step-end infinite; }
 .glitch-wrap:hover .glitch-text { animation: glitch 0.3s ease; }
 

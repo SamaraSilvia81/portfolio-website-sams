@@ -9,6 +9,7 @@ import { projects, services, stack } from '../data/projects'
 import { heroImage } from '../data/images'
 import { useLang } from '../data/LangContext'
 import { Fade, Crosshairs, GridDots, SectionPrompt } from '../components/ui'
+import TerminalTyping from '../components/TerminalTyping'
 
 const iconMap = { frontend: Code2, uxui: Palette, systems: Layout, edtech: GraduationCap }
 const PREVIEW_COUNT = 6
@@ -40,12 +41,17 @@ export default function Home() {
         </div>
 
         <div className="container" style={{ width: '100%', position: 'relative', zIndex: 2 }}>
-          <Fade>
+
+        <Fade>
+          <TerminalTyping />
+        </Fade>
+
+          {/* <Fade>
             <p className="fm" style={{ color: colors.phosphor, fontSize: 13, marginBottom: 32, letterSpacing: '0.06em', display: 'flex', alignItems: 'center', gap: 8 }}>
               <span style={{ display: 'inline-block', width: 8, height: 8, background: colors.phosphor, borderRadius: '50%' }} />
               $ {h.heroTag}<span className="blink">_</span>
             </p>
-          </Fade>
+          </Fade> */}
 
           <Fade delay={0.08}>
             <h1 className="fd hero-h1">

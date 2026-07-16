@@ -32,6 +32,7 @@ export default function App() {
       <Footer />
       <ThemeToggle />
       <BackToTop />
+      {/* <div className="texture-layer" aria-hidden="true" /> */}
     </LangProvider>
   )
 }

@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Mail, Github, Linkedin, Instagram, Send } from 'lucide-react'
+import { Mail, Github, Linkedin, Instagram, Send, Loader2, AlertCircle } from 'lucide-react'
 import { colors } from '../data/tokens'
 import { useLang } from '../data/LangContext'
+import { supabase } from '../lib/supabase'
 import { Fade, GridDots, SectionPrompt } from '../components/ui'
 
 const inputStyle = {
@@ -15,10 +16,35 @@ export default function Contact() {
   const { t } = useLang()
   const c = t.contact
   const [form, setForm] = useState({ name: '', email: '', projectType: '', budget: '', timeline: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
+  const [status, setStatus] = useState('idle') // idle | sending | success | error
+  const [errorMsg, setErrorMsg] = useState('')
 
   const handleChange = (field) => (e) => setForm((prev) => ({ ...prev, [field]: e.target.value }))
-  const handleSubmit = (e) => { e.preventDefault(); console.log('Form:', form); setSubmitted(true) }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!form.name || !form.email || !form.message) return
+
+    setStatus('sending')
+    setErrorMsg('')
+
+    try {
+      const { error } = await supabase.from('contact_submissions').insert({
+        name: form.name,
+        email: form.email,
+        project_type: form.projectType || null,
+        budget: form.budget || null,
+        timeline: form.timeline || null,
+        message: form.message,
+      })
+
+      if (error) throw error
+      setStatus('success')
+    } catch (err) {
+      console.error('Submission error:', err)
+      setErrorMsg(err.message || 'Something went wrong')
+      setStatus('error')
+    }
+  }
 
   return (
     <main style={{ paddingTop: 108 }}>
@@ -33,7 +59,7 @@ export default function Contact() {
 
         <hr className="divider" style={{ marginBottom: 56 }} />
 
-        {submitted ? (
+        {status === 'success' ? (
           <Fade>
             <div style={{ padding: '64px 32px', background: colors.surface, border: `1px solid var(--c-phosphor-20)`, textAlign: 'center' }}>
               <p className="fm" style={{ color: colors.phosphor, fontSize: 14, marginBottom: 16 }}>{c.successTag}</p>
@@ -44,6 +70,12 @@ export default function Contact() {
         ) : (
           <Fade delay={0.1}>
             <div>
+              {status === 'error' && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 20px', background: 'var(--c-ember-8)', border: '1px solid var(--c-ember)', marginBottom: 24, fontSize: 14, color: colors.ember }}>
+                  <AlertCircle size={16} />
+                  {errorMsg || 'Something went wrong. Please try again.'}
+                </div>
+              )}
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24, marginBottom: 24 }}>
                 <div>
                   <label className="fm" style={{ fontSize: 11, color: colors.muted, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, display: 'block' }}>{c.nameLabel}</label>
@@ -78,8 +110,8 @@ export default function Contact() {
                 <label className="fm" style={{ fontSize: 11, color: colors.muted, letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: 8, display: 'block' }}>{c.messageLabel}</label>
                 <textarea placeholder={c.messagePlaceholder} value={form.message} onChange={handleChange('message')} rows={6} style={{ ...inputStyle, resize: 'vertical', minHeight: 120 }} required />
               </div>
-              <button type="button" onClick={handleSubmit} className="cta-primary">
-                <Send size={16} /> {c.submitBtn}
+              <button type="button" onClick={handleSubmit} className="cta-primary" disabled={status === 'sending'} style={{ opacity: status === 'sending' ? 0.7 : 1 }}>
+                {status === 'sending' ? <><Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> Sending...</> : <><Send size={16} /> {c.submitBtn}</>}
               </button>
             </div>
           </Fade>
